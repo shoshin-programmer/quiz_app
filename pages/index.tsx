@@ -1,7 +1,6 @@
 import Head from "next/head";
 import { GetServerSideProps, NextPage } from "next";
-import QuestionCard from "../components/QuestionCard";
-import { useRouter } from "next/router";
+import Link from "next/link";
 
 interface Question {
   category: string;
@@ -14,7 +13,6 @@ interface Question {
 
 const Index: NextPage<{ question: Question }> = (props) => {
   const data = props["data"]["results"][0];
-  const router = useRouter();
 
   const checkAnswer = (event: React.MouseEvent<HTMLButtonElement>) => {
     console.log(event);
@@ -38,7 +36,9 @@ const Index: NextPage<{ question: Question }> = (props) => {
           <div className="mx-auto text-gray-100">
             <h2>Ready to start the Quiz?</h2>
             <div className="u-center">
-              <button onClick={() => router.push("/test")}>Start Quiz</button>
+              <Link href="/test">
+                <button>Start Quiz</button>
+              </Link>
             </div>
           </div>
         </div>
