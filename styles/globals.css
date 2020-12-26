@@ -16,6 +16,15 @@ a {
 }
 
 .main-bg {
-  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("/rubick.jpg");
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("/rubick.jpg");
   background-size: cover;
+}
+
+.font-size-xl {
+  font-size: 1.4rem;
+}
+
+.full-width {
+  min-width: 100%;
 }
