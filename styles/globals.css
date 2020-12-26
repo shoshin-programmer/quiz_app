@@ -28,3 +28,8 @@ a {
 .full-width {
   min-width: 100%;
 }
+
+.transparent {
+  background: rgba(252, 252, 252, 0.9) !important;
+  color: #000000 !important;
+}
