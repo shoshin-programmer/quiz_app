@@ -24,10 +24,15 @@ const QuestionCard = () => {
           <Choice choice={"Choice"} answer={true} />
           <Choice choice={"Choice"} />
           <Choice choice={"Choice"} />
+          <div className="col-6 u-center">
+            <Link href="#">
+              <button className="btn btn-xsmall btn-info w-100">Next</button>
+            </Link>
+          </div>
         </div>
       </div>
       <Link href="/">
-        <button className="btn btn-xsmall btn-danger">From the Start</button>
+        <button className="btn btn-xsmall btn-danger">Restart</button>
       </Link>
     </>
   );
@@ -37,7 +42,7 @@ const Choice = (props) => {
   return (
     <div className="col-6 u-center">
       <button
-        className={`btn btn-dark mb-1 w-100 ${
+        className={`btn btn-dark mb-1 w-100 btn-small ${
           props.answer ? "btn-success" : "outline"
         }`}
       >
