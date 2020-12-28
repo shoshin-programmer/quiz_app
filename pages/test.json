@@ -1,0 +1,93 @@
+{
+  "response_code": 0,
+  "results": [
+    {
+      "category": "Animals",
+      "type": "boolean",
+      "difficulty": "easy",
+      "question": "The Axolotl is an amphibian that can spend its whole life in a larval state.",
+      "correct_answer": "True",
+      "incorrect_answers": ["False"]
+    },
+    {
+      "category": "Vehicles",
+      "type": "multiple",
+      "difficulty": "easy",
+      "question": "Jaguar Cars was previously owned by which car manfacturer?",
+      "correct_answer": "Ford",
+      "incorrect_answers": ["Chrysler", "General Motors", "Fiat"]
+    },
+    {
+      "category": "Entertainment: Japanese Anime & Manga",
+      "type": "multiple",
+      "difficulty": "medium",
+      "question": "The manga JoJo&#039;s Bizarre Adventure is split into how many parts?",
+      "correct_answer": "8",
+      "incorrect_answers": ["6", "4", "3"]
+    },
+    {
+      "category": "Entertainment: Video Games",
+      "type": "multiple",
+      "difficulty": "easy",
+      "question": "In what year was the first &quot;Mass Effect&quot; game released?",
+      "correct_answer": "2007",
+      "incorrect_answers": ["2008", "2009", "2010"]
+    },
+    {
+      "category": "Entertainment: Music",
+      "type": "multiple",
+      "difficulty": "easy",
+      "question": "In 2006, which band released their debut album &quot;A Fever You Can&#039;t Sweat Out&quot;?",
+      "correct_answer": "Panic! At the Disco",
+      "incorrect_answers": [
+        "Twenty One Pilots",
+        "My Chemical Romance",
+        "Fall Out Boy"
+      ]
+    },
+    {
+      "category": "General Knowledge",
+      "type": "multiple",
+      "difficulty": "medium",
+      "question": "The website &quot;Shut Up &amp; Sit Down&quot; reviews which form of media?",
+      "correct_answer": "Board Games",
+      "incorrect_answers": ["Television Shows", "Video Games", "Films"]
+    },
+    {
+      "category": "History",
+      "type": "multiple",
+      "difficulty": "easy",
+      "question": "In 1453, which important city fell?",
+      "correct_answer": "Constantinople",
+      "incorrect_answers": ["Rome", "Hamburg", "Athens"]
+    },
+    {
+      "category": "Entertainment: Video Games",
+      "type": "multiple",
+      "difficulty": "easy",
+      "question": "In &quot;PUBATTLEGROUNDS&quot; which ammo type does the M24 use?",
+      "correct_answer": "7.62mm",
+      "incorrect_answers": ["5.56mm", "9mm", ".300 Magnum"]
+    },
+    {
+      "category": "Entertainment: Television",
+      "type": "multiple",
+      "difficulty": "medium",
+      "question": "What is the name of the inspector in the series &quot;On the Buses&quot;?",
+      "correct_answer": "Blakey",
+      "incorrect_answers": ["Harper", "Naily", "Gally"]
+    },
+    {
+      "category": "Entertainment: Video Games",
+      "type": "multiple",
+      "difficulty": "easy",
+      "question": "When was &quot;Luigi&#039;s Mansion 3&quot; released?",
+      "correct_answer": "October 31st, 2019",
+      "incorrect_answers": [
+        "January 13th, 2019",
+        "September 6th, 2018",
+        "October 1st, 2019"
+      ]
+    }
+  ]
+}

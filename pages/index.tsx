@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { useState, useContext } from "react";
 import { GetServerSideProps, NextPage } from "next";
 import Link from "next/link";
 
@@ -12,33 +13,55 @@ interface Question {
 }
 
 const Index: NextPage<{ question: Question }> = (props) => {
-  const data = props["data"]["results"][0];
-
-  const checkAnswer = (event: React.MouseEvent<HTMLButtonElement>) => {
-    console.log(event);
-    // if answer is correct then continue and show correct answer or highlight it with green
-    // if answer is wrong, do the same.
-  };
-
-  const nextQuestion = () => {
-    console.log("Next Question");
-    // button is next question after checking, move the page to next question
-  };
+  /* TODO
+  Page should contain the settings for the Quiz and Last Score.
+  */
 
   return (
     <div>
       <Head>
-        <title>Sample Quiz App</title>
+        <title>Test Your Knowledge</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="hero fullscreen main-bg">
         <div className="hero-body">
-          <div className="mx-auto text-gray-100">
-            <h2>Ready to start the Quiz?</h2>
-            <div className="u-center">
-              <Link href="/test">
-                <button>Start Quiz</button>
-              </Link>
+          <div className="row">
+            <div className="col-6 offset-3">
+              <div className="card transparent">
+                <div className="card-head">
+                  <p className="font-bold px-3">Test Your Knowledge</p>
+                </div>
+                <div className="content p-2">
+                  <div className="input-control">
+                    <div className="label">Number of Questions</div>
+                    <select
+                      className="select input-small"
+                      placeholder="Dropdown Small"
+                    >
+                      <option value="10">10</option>
+                      <option value="20">20</option>
+                      <option value="30">30</option>
+                    </select>
+                  </div>
+                  <div className="input-control">
+                    <div className="label">Difficulty</div>
+                    <select
+                      className="select input-small"
+                      placeholder="Dropdown Small"
+                    >
+                      <option value="easy">Easy</option>
+                      <option value="medium">Medium</option>
+                      <option value="hard">Hard</option>
+                    </select>
+                  </div>
+                </div>
+                <div className="card-footer level content">
+                  Last Score: 10/10
+                </div>
+                <div className="action-bar u-center">
+                  <button className="btn-info outline">Start Quiz</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -47,12 +70,12 @@ const Index: NextPage<{ question: Question }> = (props) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const res = await fetch(`https://opentdb.com/api.php?amount=10`);
-  const data = await res.json();
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+// const res = await fetch(`https://opentdb.com/api.php?amount=10`);
+// const data = await res.json();
 
-  // Pass data to the page via props
-  return { props: { data } };
-};
+// // Pass data to the page via props
+// return { props: { data } };
+// };
 
 export default Index;

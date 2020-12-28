@@ -33,3 +33,7 @@ a {
   background: rgba(252, 252, 252, 0.9) !important;
   color: #000000 !important;
 }
+
+.min-card {
+  min-width: 300px;
+}
