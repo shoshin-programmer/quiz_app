@@ -1,19 +1,19 @@
 interface Props {
   question: string;
   answers: string[];
-  callback: any;
-  userAnswer: any;
-  questionNumber: number;
-  totalQuestions: number;
+  // callback: any;
+  // userAnswer: any;
+  // questionNumber: number;
+  // totalQuestions: number;
 }
 
 const QuestionCard: React.FC<Props> = ({
   question,
   answers,
-  callback,
-  userAnswer,
-  questionNumber,
-  totalQuestions,
+  // callback,
+  // userAnswer,
+  // questionNumber,
+  // totalQuestions,
 }) => {
   return (
     <>
@@ -21,7 +21,7 @@ const QuestionCard: React.FC<Props> = ({
         <div className="card-head">
           <p className="font-bold px-3">Score: $</p>
           <p className="font-bold px-3">
-            Question: {questionNumber} / {totalQuestions}
+            {/* Question: {questionNumber} / {totalQuestions} */}
           </p>
         </div>
         <div className="content full-width pl-5 pr-5 pt-2">
@@ -34,8 +34,8 @@ const QuestionCard: React.FC<Props> = ({
           {answers.map((answer, idx) => (
             <div className="col-6 u-center" key={idx}>
               <button
-                onClick={callback}
-                disabled={userAnswer ? true : false}
+                // onClick={callback}
+                // disabled={userAnswer ? true : false}
                 className={`btn btn-dark mb-1 w-100 btn-small ${
                   answer ? "btn-success" : "outline"
                 }`}

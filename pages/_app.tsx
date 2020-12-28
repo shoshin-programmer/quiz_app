@@ -1,16 +1,20 @@
 import type { AppProps /*, AppContext */ } from "next/app";
 import "../styles/globals.css";
 import "cirrus-ui";
-import { settingsContext } from "../context/settingsContext";
-import { useContext } from "react";
+import {
+  ISettings,
+  defaultSettings,
+  SettingsContext,
+} from "../context/settings-context";
+import { useState, useContext } from "react";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const settings = useContext(settingsContext);
-  console.log("settings", settings);
+  const [settings, setSettings] = useState<ISettings>(defaultSettings);
+  const changeSettings = (value:any) => setSettings({ ...value });
   return (
-    <settingsContext.Provider value={settings}>
+    <SettingsContext.Provider value={{ ...settings, changeSettings }}>
       <Component {...pageProps} />
-    </settingsContext.Provider>
+    </SettingsContext.Provider>
   );
 }
 export default MyApp;
