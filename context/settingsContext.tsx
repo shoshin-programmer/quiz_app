@@ -1,15 +1,40 @@
-import React from "react";
+import { createContext, useState } from "react";
 
 interface Settings {
   difficulty: string;
-  number_of_questions: number;
+  totalQuestions: number;
 }
 
-export const defaultSettings: Settings = {
+interface SettingsContext {
+  difficulty: string;
+  totalQuestions: number;
+  setDifficulty: (difficulty) => void;
+  setTotalQuestions: (totalQuestions) => void;
+}
+
+const defaultSettings: Settings = {
   difficulty: "easy",
-  number_of_questions: 10,
+  totalQuestions: 10,
 };
 
-const TestSettings = React.createContext<Settings>(defaultSettings);
+export const settingsContext = createContext({
+  difficulty: "easy",
+  totalQuestions: 10,
+  setDifficulty: () => {},
+  setTotalQuestions: () => {},
+})
 
-export default TestSettings;
+
+export function quizSettings(): SettingsContext {
+  const [difficulty, setDifficulty] = useState(defaultSettings.difficulty);
+  const [totalQuestions, setTotalQuestions] = useState(
+    defaultSettings.totalQuestions
+  );
+
+  return {
+    difficulty,
+    totalQuestions,
+    setDifficulty,
+    setTotalQuestions,
+  };
+}
