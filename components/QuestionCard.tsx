@@ -1,8 +1,11 @@
 import SmallLoading from "./SmallLoading";
+// Utils
+import { shuffleArray } from "../utils";
 
 interface Props {
   question: string;
-  answers: string[];
+  incorrectAnswers: string[];
+  correctAnswer: string;
   questionNumber: number;
   totalQuestions: number;
   category: string;
@@ -13,7 +16,8 @@ interface Props {
 
 const QuestionCard: React.FC<Props> = ({
   question,
-  answers,
+  incorrectAnswers,
+  correctAnswer,
   questionNumber,
   totalQuestions,
   category,
@@ -27,6 +31,7 @@ const QuestionCard: React.FC<Props> = ({
     disable all other options
     check if the answer is the same with the correct one
   */
+  const answers = shuffleArray(incorrectAnswers.concat(correctAnswer));
   return (
     <div>
       <div className="card transparent">

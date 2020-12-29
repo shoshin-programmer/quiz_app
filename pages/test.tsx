@@ -4,8 +4,6 @@ import { useState } from "react";
 import LoadingCard from "../components/LoadingCard";
 import QuestionCard from "../components/QuestionCard";
 import { SettingsContext } from "../context/settings-context";
-// Utils
-import { shuffleArray } from "../utils";
 
 // Variables
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
@@ -70,11 +68,8 @@ function Questions({ difficulty, totalQuestions }) {
               ) : (
                 <QuestionCard
                   question={data.results[questionNumber].question}
-                  answers={shuffleArray(
-                    data.results[questionNumber].incorrect_answers.concat(
-                      data.results[questionNumber].correct_answer
-                    )
-                  )}
+                  incorrectAnswers={data.results[questionNumber].incorrect_answers}
+                  correctAnswer={data.results[questionNumber].correct_answer}
                   questionNumber={questionNumber + 1}
                   totalQuestions={totalQuestions}
                   category={data.results[questionNumber].category}
