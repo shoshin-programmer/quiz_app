@@ -63,16 +63,25 @@ function Questions({ difficulty, totalQuestions }) {
     FETCH_SETTINGS
   );
   const [questionNumber, setQuestionNumber] = useState<number>(0);
+  const [answerConfirmed, setAnswerConfirmed] = useState<boolean>(false);
+
+  const handleConfirm = (e: any) => {
+    // if {answer is correct} turn btn to green
+    // else if { answer is wrong } turn btn to red
+    // else disable all buttons
+    setAnswerConfirmed(true);
+  };
 
   const handleNext = () => {
     setQuestionNumber(questionNumber + 1);
-    setUserAnswer("");
+    setUserAnswer(null);
+    setAnswerConfirmed(false);
   };
 
   const handleRestart = () => {
     setQuestionNumber(0);
     mutate();
-    setUserAnswer("");
+    setUserAnswer(null);
   };
 
   const [userAnswer, setUserAnswer] = useState<string>("");
@@ -80,7 +89,6 @@ function Questions({ difficulty, totalQuestions }) {
   const callback = (answer: any) => {
     setUserAnswer(answer);
   };
-  console.log(data);
 
   return (
     <div>
@@ -109,9 +117,17 @@ function Questions({ difficulty, totalQuestions }) {
               <button
                 className={questionNumber === totalQuestions - 1 ? `hide` : ``}
                 disabled={userAnswer ? false : true}
-                onClick={handleNext}
+                onClick={handleConfirm}
               >
                 Confirm Answer
+              </button>
+              <button
+                // TODO: Show a summay on correct answers.
+                className={questionNumber === totalQuestions - 1 ? `hide` : ``}
+                disabled={answerConfirmed ? false : true}
+                onClick={handleNext}
+              >
+                Next
               </button>
             </div>
           </div>
