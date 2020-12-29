@@ -1,60 +1,8 @@
-// import Link from "next/link";
-// import { GetServerSideProps, NextPage } from "next";
-// import { useState } from "react";
-
-// interface Questions {
-//   category: string;
-//   type: string;
-//   difficulty: string;
-//   questions: string[];
-//   correct_answers: string;
-//   incorrect_answers: string[];
-// }
-
-// const TOTAL_QUESTIONS = 10;
-
-// const Test = ({ data }) => {
-//   console.log('data', data.results)
-
-//   return (
-//     <div>
-//       <div className="hero fullscreen main-bg">
-//         <div className="hero-body">
-//           <div className="mx-auto">
-//             {/* <QuestionCard
-//               questionNumber={number + 1}
-//               totalQuestions={TOTAL_QUESTIONS}
-//               question={''}
-//               answers={[]}
-//               userAnswer={userAnswers ? userAnswers[number] : undefined}
-//               callback={checkAnswer}
-//             /> */}
-
-//             <Link href="#">
-//               <button className="btn btn-xsmall btn-info w-100">Next</button>
-//             </Link>
-//             <Link href="/">
-//               <button className="btn btn-xsmall btn-danger">Restart</button>
-//             </Link>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// Test.getInitialProps = async ({ query }) => {
-//   const res = await fetch(`https://opentdb.com/api.php?amount=10`);
-//   const data = await res.json();
-
-//   // Pass data to the page via props
-//   return { props: { data } };
-// };
-
-// export default Test;
+import { useState } from "react";
 import QuestionCard from "../components/QuestionCard";
 import useSWR from "swr";
 import { SettingsContext } from "../context/settings-context";
+import Router from "next/router";
 
 export default function Profile() {
   return (
@@ -76,26 +24,84 @@ export default function Profile() {
 function Questions(props) {
   const difficulty = props.difficulty;
   const totalQuestions = props.totalQuestions;
-  const fetcher = (url) => fetch(url).then((res) => res.json());
-  const { data, error } = useSWR(
-    `https://opentdb.com/api.php?amount=${totalQuestions}&difficulty=${difficulty}`,
-    fetcher
-  );
 
-  if (error) return <div>failed to load</div>;
-  if (!data) return <div>loading...</div>;
-  console.log(data.results);
+  const [loading, setLoading] = useState<Boolean>(false);
+  const fetcher = (url: string) => fetch(url).then((res) => res.json());
+  const url = `https://opentdb.com/api.php?amount=${totalQuestions}&difficulty=${difficulty}`;
+  const fetch_settings = {
+    revalidateOnFocus: false,
+    revalidateOnMount: true,
+    revalidateOnReconnect: false,
+    refreshWhenOffline: false,
+    refreshWhenHidden: false,
+    refreshInterval: 0,
+  };
+  const { data, error, mutate, isValidating } = useSWR(
+    url,
+    fetcher,
+    fetch_settings
+  );
+  const [questionNumber, setQuestionNumber] = useState(0);
+
+  const handleNext = () => {
+    setQuestionNumber(questionNumber + 1);
+  };
+
+  const handleRestart = () => {
+    setQuestionNumber(0);
+    mutate();
+  };
+
+  if (error)
+    return (
+      <div>
+        <div className="hero fullscreen main-bg">
+          <div className="hero-body">
+            <div className="mx-auto"></div>
+          </div>
+        </div>
+      </div>
+    );
+
+  if (!data)
+    return (
+      <div>
+        <div className="hero fullscreen main-bg">
+          <div className="hero-body">
+            <div className="row">
+              <div className="col-6 offset-3">
+                <div className="card transparent">
+                  <div className="animated loading hide-text full-width w-100">
+                    <p>' '</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  const questions = data.results;
   return (
     <div>
       <div className="hero fullscreen main-bg">
         <div className="hero-body">
           <div className="mx-auto">
-            {data.results.map((data) => (
               <QuestionCard
-                question={data.question}
-                answers={data.incorrect_answers}
+                question={questions[questionNumber].question}
+                answers={questions[questionNumber].incorrect_answers}
+                questionNumber={questionNumber + 1}
+                totalQuestions={totalQuestions}
+                category={questions[questionNumber].category}
+                isValidating={isValidating}
               />
-            ))}
+            <button
+              className={questionNumber === totalQuestions - 1 ? `hide` : ``}
+              onClick={handleNext}
+            >
+              Next
+            </button>
+            <button onClick={handleRestart}>restart</button>
           </div>
         </div>
       </div>

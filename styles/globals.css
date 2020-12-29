@@ -37,3 +37,6 @@ a {
 .min-card {
   min-width: 300px;
 }
+.hide {
+  display: none;
+}
