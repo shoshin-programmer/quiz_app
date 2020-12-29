@@ -7,8 +7,8 @@ interface Props {
   totalQuestions: number;
   category: string;
   isValidating: boolean;
+  userAnswer: any;
   // callback: any;
-  // userAnswer: any;
 }
 
 const QuestionCard: React.FC<Props> = ({
@@ -18,8 +18,15 @@ const QuestionCard: React.FC<Props> = ({
   totalQuestions,
   category,
   isValidating,
-  // userAnswer,
+  userAnswer,
+  // callback
 }) => {
+  /*
+  if button is clicked,
+    register answer
+    disable all other options
+    check if the answer is the same with the correct one
+  */
   return (
     <div>
       <div className="card transparent">
@@ -49,7 +56,7 @@ const QuestionCard: React.FC<Props> = ({
                     // onClick={callback}
                     // disabled={userAnswer ? true : false}
                     className={`btn btn-dark mb-1 w-100 btn-small ${
-                      answer ? "btn" : "outline"
+                      answer ? "" : "success"
                     }`}
                   >
                     <b dangerouslySetInnerHTML={{ __html: answer }} />

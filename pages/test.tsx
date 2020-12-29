@@ -1,11 +1,14 @@
+import useSWR from "swr";
 import { useState } from "react";
+// Components
 import LoadingCard from "../components/LoadingCard";
 import QuestionCard from "../components/QuestionCard";
-import useSWR from "swr";
 import { SettingsContext } from "../context/settings-context";
+// Utils
+import { shuffleArray } from "../utils";
 
+// Variables
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
-
 const FETCH_SETTINGS = {
   revalidateOnFocus: false,
   revalidateOnMount: true,
@@ -50,6 +53,10 @@ function Questions({ difficulty, totalQuestions }) {
     mutate();
   };
 
+  const [userAnswer, setUserAnswer] = useState<string>("");
+
+  const callback = () => {};
+
   return (
     <div>
       <div className="hero fullscreen main-bg">
@@ -63,11 +70,17 @@ function Questions({ difficulty, totalQuestions }) {
               ) : (
                 <QuestionCard
                   question={data.results[questionNumber].question}
-                  answers={data.results[questionNumber].incorrect_answers}
+                  answers={shuffleArray(
+                    data.results[questionNumber].incorrect_answers.concat(
+                      data.results[questionNumber].correct_answer
+                    )
+                  )}
                   questionNumber={questionNumber + 1}
                   totalQuestions={totalQuestions}
                   category={data.results[questionNumber].category}
                   isValidating={isValidating}
+                  userAnswer={userAnswer}
+                  // callback={callback}
                 />
               )}
               <button onClick={handleRestart}>restart</button>
