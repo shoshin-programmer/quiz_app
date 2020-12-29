@@ -66,6 +66,7 @@ function Questions({ difficulty, totalQuestions }) {
   const [answerConfirmed, setAnswerConfirmed] = useState<boolean>(false);
   const [correct, setCorrect] = useState<boolean>(false);
   const [score, setScore] = useState<number>(0);
+  const [userAnswer, setUserAnswer] = useState<string>("");
 
   const handleConfirmation = () => {
     setAnswerConfirmed(true);
@@ -73,6 +74,10 @@ function Questions({ difficulty, totalQuestions }) {
     setCorrect(value);
     if (value) {
       setScore(score + 1);
+    }
+    if (questionNumber === totalQuestions - 1) {
+      alert(`Finished! Your score is: ${score}`);
+      handleRestart();
     }
   };
 
@@ -87,9 +92,8 @@ function Questions({ difficulty, totalQuestions }) {
     mutate();
     setUserAnswer(null);
     setAnswerConfirmed(false);
+    setScore(0);
   };
-
-  const [userAnswer, setUserAnswer] = useState<string>("");
 
   const setAnswer = (event: any) => {
     setUserAnswer(event.target.value);
@@ -122,7 +126,7 @@ function Questions({ difficulty, totalQuestions }) {
               )}
               <button onClick={handleRestart}>restart</button>
               <button
-                className={questionNumber === totalQuestions - 1 ? `hide` : ``}
+                className={questionNumber === totalQuestions ? `hide` : ``}
                 disabled={userAnswer ? false : true}
                 onClick={handleConfirmation}
               >
