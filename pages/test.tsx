@@ -50,13 +50,13 @@ function Questions({ difficulty, totalQuestions }) {
   const handleRestart = () => {
     setQuestionNumber(0);
     mutate();
+    setUserAnswer("");
   };
 
   const [userAnswer, setUserAnswer] = useState<string>("");
 
   const callback = () => {
     setUserAnswer("value");
-    // setQuestionNumber(questionNumber + 1);
   };
 
   return (
