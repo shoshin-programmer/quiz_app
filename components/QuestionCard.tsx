@@ -1,10 +1,8 @@
 import SmallLoading from "./SmallLoading";
-// Utils
-import { shuffleArray } from "../utils";
 
 interface Props {
   question: string;
-  incorrectAnswers: string[];
+  choices: string[];
   correctAnswer: string;
   questionNumber: number;
   totalQuestions: number;
@@ -16,14 +14,14 @@ interface Props {
 
 const QuestionCard: React.FC<Props> = ({
   question,
-  incorrectAnswers,
+  choices,
   correctAnswer,
   questionNumber,
   totalQuestions,
   category,
   isValidating,
   userAnswer,
-  callback
+  callback,
 }) => {
   /*
   if button is clicked,
@@ -36,7 +34,6 @@ const QuestionCard: React.FC<Props> = ({
       get the value of the button
       update userAnswer state
   */
-  const answers = shuffleArray(incorrectAnswers.concat(correctAnswer));
   return (
     <div>
       <div className="card transparent">
@@ -60,16 +57,19 @@ const QuestionCard: React.FC<Props> = ({
             </div>
 
             <div className="u-left action-bar row">
-              {answers.map((answer, idx) => (
+              {choices.map((choice, idx) => (
                 <div className="col-6" key={idx}>
                   <button
-                    onClick={callback}
-                    disabled={userAnswer ? true : false}
-                    className={`btn btn-dark mb-1 w-100 btn-small ${
-                      answer ? "" : "success"
-                    }`}
+                    onClick={() => callback(choice)}
+                    className={`btn mb-1 w-100 btn-small m-0
+                     ${
+                       userAnswer === choice
+                         ? "btn-dark text-white"
+                         : "outline text-dark"
+                     }
+                     ${choice ? "success" : "success"}`}
                   >
-                    <b dangerouslySetInnerHTML={{ __html: answer }} />
+                    <b dangerouslySetInnerHTML={{ __html: choice }} />
                   </button>
                 </div>
               ))}

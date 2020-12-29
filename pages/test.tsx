@@ -4,9 +4,31 @@ import { useState } from "react";
 import LoadingCard from "../components/LoadingCard";
 import QuestionCard from "../components/QuestionCard";
 import { SettingsContext } from "../context/settings-context";
-
+// Utils
+import { shuffleArray } from "../utils";
 // Variables
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
+
+export type Question = {
+  category: string;
+  correct_answer: string;
+  difficulty: string;
+  incorrect_answers: string[];
+  question: string;
+  type: string;
+};
+
+const fetcher = (url: string) =>
+  fetch(url).then((res) =>
+    res.json().then((data) =>
+      data.results.map((question: Question) => ({
+        ...question,
+        choices: shuffleArray([
+          ...question.incorrect_answers,
+          question.correct_answer,
+        ]),
+      }))
+    )
+  );
 const FETCH_SETTINGS = {
   revalidateOnFocus: false,
   revalidateOnMount: true,
@@ -55,9 +77,10 @@ function Questions({ difficulty, totalQuestions }) {
 
   const [userAnswer, setUserAnswer] = useState<string>("");
 
-  const callback = () => {
-    setUserAnswer("value");
+  const callback = (answer: any) => {
+    setUserAnswer(answer);
   };
+  console.log(data);
 
   return (
     <div>
@@ -71,14 +94,12 @@ function Questions({ difficulty, totalQuestions }) {
                 <LoadingCard />
               ) : (
                 <QuestionCard
-                  question={data.results[questionNumber].question}
-                  incorrectAnswers={
-                    data.results[questionNumber].incorrect_answers
-                  }
-                  correctAnswer={data.results[questionNumber].correct_answer}
+                  question={data[questionNumber].question}
+                  choices={data[questionNumber].choices}
+                  correctAnswer={data[questionNumber].correct_answer}
                   questionNumber={questionNumber + 1}
                   totalQuestions={totalQuestions}
-                  category={data.results[questionNumber].category}
+                  category={data[questionNumber].category}
                   isValidating={isValidating}
                   userAnswer={userAnswer}
                   callback={callback}
@@ -90,7 +111,7 @@ function Questions({ difficulty, totalQuestions }) {
                 disabled={userAnswer ? false : true}
                 onClick={handleNext}
               >
-                Next
+                Confirm Answer
               </button>
             </div>
           </div>
