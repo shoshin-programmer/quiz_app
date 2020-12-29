@@ -49,7 +49,7 @@ const QuestionCard: React.FC<Props> = ({
                     // onClick={callback}
                     // disabled={userAnswer ? true : false}
                     className={`btn btn-dark mb-1 w-100 btn-small ${
-                      answer ? "btn-success" : "outline"
+                      answer ? "btn" : "outline"
                     }`}
                   >
                     <b dangerouslySetInnerHTML={{ __html: answer }} />
