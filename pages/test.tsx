@@ -44,6 +44,7 @@ function Questions({ difficulty, totalQuestions }) {
 
   const handleNext = () => {
     setQuestionNumber(questionNumber + 1);
+    setUserAnswer("");
   };
 
   const handleRestart = () => {
@@ -53,7 +54,10 @@ function Questions({ difficulty, totalQuestions }) {
 
   const [userAnswer, setUserAnswer] = useState<string>("");
 
-  const callback = () => {};
+  const callback = () => {
+    setUserAnswer("value");
+    // setQuestionNumber(questionNumber + 1);
+  };
 
   return (
     <div>
@@ -68,19 +72,22 @@ function Questions({ difficulty, totalQuestions }) {
               ) : (
                 <QuestionCard
                   question={data.results[questionNumber].question}
-                  incorrectAnswers={data.results[questionNumber].incorrect_answers}
+                  incorrectAnswers={
+                    data.results[questionNumber].incorrect_answers
+                  }
                   correctAnswer={data.results[questionNumber].correct_answer}
                   questionNumber={questionNumber + 1}
                   totalQuestions={totalQuestions}
                   category={data.results[questionNumber].category}
                   isValidating={isValidating}
                   userAnswer={userAnswer}
-                  // callback={callback}
+                  callback={callback}
                 />
               )}
               <button onClick={handleRestart}>restart</button>
               <button
                 className={questionNumber === totalQuestions - 1 ? `hide` : ``}
+                disabled={userAnswer ? false : true}
                 onClick={handleNext}
               >
                 Next

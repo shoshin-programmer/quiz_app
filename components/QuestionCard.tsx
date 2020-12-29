@@ -11,7 +11,7 @@ interface Props {
   category: string;
   isValidating: boolean;
   userAnswer: any;
-  // callback: any;
+  callback: any;
 }
 
 const QuestionCard: React.FC<Props> = ({
@@ -23,13 +23,18 @@ const QuestionCard: React.FC<Props> = ({
   category,
   isValidating,
   userAnswer,
-  // callback
+  callback
 }) => {
   /*
   if button is clicked,
     register answer
     disable all other options
     check if the answer is the same with the correct one
+    then go to next question
+  onclick
+    function on parent component
+      get the value of the button
+      update userAnswer state
   */
   const answers = shuffleArray(incorrectAnswers.concat(correctAnswer));
   return (
@@ -58,8 +63,8 @@ const QuestionCard: React.FC<Props> = ({
               {answers.map((answer, idx) => (
                 <div className="col-6" key={idx}>
                   <button
-                    // onClick={callback}
-                    // disabled={userAnswer ? true : false}
+                    onClick={callback}
+                    disabled={userAnswer ? true : false}
                     className={`btn btn-dark mb-1 w-100 btn-small ${
                       answer ? "" : "success"
                     }`}
