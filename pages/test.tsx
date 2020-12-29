@@ -64,12 +64,16 @@ function Questions({ difficulty, totalQuestions }) {
   );
   const [questionNumber, setQuestionNumber] = useState<number>(0);
   const [answerConfirmed, setAnswerConfirmed] = useState<boolean>(false);
+  const [correct, setCorrect] = useState<boolean>(false);
+  const [score, setScore] = useState<number>(0);
 
-  const handleConfirm = (e: any) => {
-    // if {answer is correct} turn btn to green
-    // else if { answer is wrong } turn btn to red
-    // else disable all buttons
+  const handleConfirmation = () => {
     setAnswerConfirmed(true);
+    const value = data[questionNumber].correct_answer === userAnswer;
+    setCorrect(value);
+    if (value) {
+      setScore(score + 1);
+    }
   };
 
   const handleNext = () => {
@@ -82,12 +86,13 @@ function Questions({ difficulty, totalQuestions }) {
     setQuestionNumber(0);
     mutate();
     setUserAnswer(null);
+    setAnswerConfirmed(false);
   };
 
   const [userAnswer, setUserAnswer] = useState<string>("");
 
-  const callback = (answer: any) => {
-    setUserAnswer(answer);
+  const setAnswer = (event: any) => {
+    setUserAnswer(event.target.value);
   };
 
   return (
@@ -104,20 +109,22 @@ function Questions({ difficulty, totalQuestions }) {
                 <QuestionCard
                   question={data[questionNumber].question}
                   choices={data[questionNumber].choices}
-                  correctAnswer={data[questionNumber].correct_answer}
                   questionNumber={questionNumber + 1}
                   totalQuestions={totalQuestions}
                   category={data[questionNumber].category}
                   isValidating={isValidating}
                   userAnswer={userAnswer}
-                  callback={callback}
+                  setAnswer={setAnswer}
+                  answerConfirmed={answerConfirmed}
+                  correct={correct}
+                  score={score}
                 />
               )}
               <button onClick={handleRestart}>restart</button>
               <button
                 className={questionNumber === totalQuestions - 1 ? `hide` : ``}
                 disabled={userAnswer ? false : true}
-                onClick={handleConfirm}
+                onClick={handleConfirmation}
               >
                 Confirm Answer
               </button>

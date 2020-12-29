@@ -3,25 +3,29 @@ import SmallLoading from "./SmallLoading";
 interface Props {
   question: string;
   choices: string[];
-  correctAnswer: string;
   questionNumber: number;
   totalQuestions: number;
   category: string;
   isValidating: boolean;
   userAnswer: any;
-  callback: any;
+  setAnswer: any;
+  answerConfirmed: boolean;
+  correct: boolean;
+  score: number;
 }
 
 const QuestionCard: React.FC<Props> = ({
   question,
   choices,
-  correctAnswer,
   questionNumber,
   totalQuestions,
   category,
   isValidating,
   userAnswer,
-  callback,
+  setAnswer,
+  answerConfirmed,
+  correct,
+  score,
 }) => {
   /*
   if button is clicked,
@@ -42,7 +46,7 @@ const QuestionCard: React.FC<Props> = ({
         ) : (
           <>
             <div className="card-head">
-              <p className="font-bold px-3">Score: $</p>
+              <p className="font-bold px-3">Score: {score}</p>
               <p className="font-bold px-3">
                 Question: {questionNumber} / {totalQuestions}
               </p>
@@ -57,17 +61,22 @@ const QuestionCard: React.FC<Props> = ({
             </div>
 
             <div className="u-left action-bar row">
-              {choices.map((choice, idx) => (
-                <div className="col-6" key={idx}>
+              {choices.map((choice) => (
+                <div className="col-6" key={choice}>
                   <button
-                    onClick={() => callback(choice)}
-                    className={`btn mb-1 w-100 btn-small m-0
-                     ${
-                       userAnswer === choice
-                         ? "btn-dark text-white"
-                         : "outline text-dark"
-                     }
-                     ${choice ? "success" : "success"}`}
+                    onClick={(e) => setAnswer(e)}
+                    disabled={answerConfirmed ? true : false}
+                    className={`
+                      btn mb-1 w-100 btn-small m-0
+                      ${
+                        userAnswer === choice
+                          ? "btn-dark text-white"
+                          : "outline text-dark"
+                      }
+                      ${correct && answerConfirmed && " btn-success"}
+                      ${!correct && answerConfirmed && " btn-danger"}
+                      `}
+                    value={choice}
                   >
                     <b dangerouslySetInnerHTML={{ __html: choice }} />
                   </button>
