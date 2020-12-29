@@ -86,7 +86,8 @@ function Questions(props) {
     <div>
       <div className="hero fullscreen main-bg">
         <div className="hero-body">
-          <div className="mx-auto">
+          <div className="row">
+            <div className="col-6 offset-3">
               <QuestionCard
                 question={questions[questionNumber].question}
                 answers={questions[questionNumber].incorrect_answers}
@@ -95,13 +96,14 @@ function Questions(props) {
                 category={questions[questionNumber].category}
                 isValidating={isValidating}
               />
-            <button
-              className={questionNumber === totalQuestions - 1 ? `hide` : ``}
-              onClick={handleNext}
-            >
-              Next
-            </button>
-            <button onClick={handleRestart}>restart</button>
+              <button onClick={handleRestart}>restart</button>
+              <button
+                className={questionNumber === totalQuestions - 1 ? `hide` : ``}
+                onClick={handleNext}
+              >
+                Next
+              </button>
+            </div>
           </div>
         </div>
       </div>
