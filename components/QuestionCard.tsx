@@ -16,6 +16,8 @@ interface Props {
   correct: boolean;
   score: number;
   handleRestart: any;
+  handleConfirmation: any;
+  handleNext: any;
 }
 
 const QuestionCard: React.FC<Props> = ({
@@ -31,6 +33,8 @@ const QuestionCard: React.FC<Props> = ({
   correct,
   score,
   handleRestart,
+  handleConfirmation,
+  handleNext,
 }) => {
   /*
   if button is clicked,
@@ -108,6 +112,33 @@ const QuestionCard: React.FC<Props> = ({
             </div>
           </>
         )}
+        <hr />
+        <div className="row">
+          <div className="col-6 p-1">
+            <button
+              className={`${
+                questionNumber === totalQuestions ? `hide` : ``
+              } btn-info btn-small w-100 m-0`}
+              disabled={userAnswer ? false : true}
+              onClick={handleConfirmation}
+            >
+              Confirm Answer
+            </button>
+          </div>
+          <div className="col-6 p-1">
+            <button
+              // TODO: Show a summay on correct answers.
+              className={`${
+                questionNumber === totalQuestions - 1 ? "hide" : ""
+              } btn outline text-dark btn-small w-100 m-0
+                `}
+              disabled={answerConfirmed ? false : true}
+              onClick={handleNext}
+            >
+              Next
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

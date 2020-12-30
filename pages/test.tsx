@@ -123,23 +123,10 @@ function Questions({ difficulty, totalQuestions }) {
                   correct={correct}
                   score={score}
                   handleRestart={handleRestart}
+                  handleConfirmation={handleConfirmation}
+                  handleNext={handleNext}
                 />
               )}
-              <button
-                className={questionNumber === totalQuestions ? `hide` : ``}
-                disabled={userAnswer ? false : true}
-                onClick={handleConfirmation}
-              >
-                Confirm Answer
-              </button>
-              <button
-                // TODO: Show a summay on correct answers.
-                className={questionNumber === totalQuestions - 1 ? `hide` : ``}
-                disabled={answerConfirmed ? false : true}
-                onClick={handleNext}
-              >
-                Next
-              </button>
             </div>
           </div>
         </div>
