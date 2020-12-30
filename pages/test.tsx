@@ -122,9 +122,9 @@ function Questions({ difficulty, totalQuestions }) {
                   answerConfirmed={answerConfirmed}
                   correct={correct}
                   score={score}
+                  handleRestart={handleRestart}
                 />
               )}
-              <button onClick={handleRestart}>restart</button>
               <button
                 className={questionNumber === totalQuestions ? `hide` : ``}
                 disabled={userAnswer ? false : true}

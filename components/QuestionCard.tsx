@@ -1,4 +1,7 @@
 import SmallLoading from "./SmallLoading";
+import "css.gg/icons/css/home-alt.css";
+import "css.gg/icons/css/sync.css";
+import Link from "next/link";
 
 interface Props {
   question: string;
@@ -12,6 +15,7 @@ interface Props {
   answerConfirmed: boolean;
   correct: boolean;
   score: number;
+  handleRestart: any;
 }
 
 const QuestionCard: React.FC<Props> = ({
@@ -26,6 +30,7 @@ const QuestionCard: React.FC<Props> = ({
   answerConfirmed,
   correct,
   score,
+  handleRestart,
 }) => {
   /*
   if button is clicked,
@@ -45,13 +50,31 @@ const QuestionCard: React.FC<Props> = ({
           <SmallLoading />
         ) : (
           <>
-            <div className="card-head">
-              <p className="font-bold px-3">Score: {score}</p>
-              <p className="font-bold px-3">
-                Question: {questionNumber} / {totalQuestions}
-              </p>
+            <div className="card-head u-flex u-justify-space-between u-items-center p-1">
+              <div className="row">
+                <span className="font-bold px-3 col">Score: {score}</span>
+                <span className="font-bold px-3 col">
+                  Question: {questionNumber} / {totalQuestions}
+                </span>
+              </div>
+              <div className="u-flex u-flex-row">
+                <button
+                  className="px-3 bg-none tooltip tooltip--bottom"
+                  onClick={handleRestart}
+                  data-tooltip="Restart"
+                >
+                  <i className="gg-sync" />
+                </button>
+                <Link href="/">
+                  <button
+                    className="px-3 bg-none tooltip tooltip--bottom"
+                    data-tooltip="Home"
+                  >
+                    <i className="gg-home-alt"></i>
+                  </button>
+                </Link>
+              </div>
             </div>
-
             <div className="content full-width pl-5 pr-5 pt-2">
               <p dangerouslySetInnerHTML={{ __html: question }} />
             </div>
