@@ -91,6 +91,7 @@ function Questions({ difficulty, totalQuestions }) {
     setQuestionNumber(questionNumber + 1);
     setUserAnswer(null);
     setAnswerConfirmed(false);
+    setCorrect(false);
   };
 
   const handleRestart = () => {

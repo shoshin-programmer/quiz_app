@@ -40,3 +40,8 @@ a {
 .hide {
   display: none;
 }
+.absolute-center-right {
+  top: 50%;
+  transform: translate(0, -50%) !important;
+  right: 10px;
+}

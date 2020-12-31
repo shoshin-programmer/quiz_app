@@ -1,6 +1,8 @@
 import SmallLoading from "./SmallLoading";
 import "css.gg/icons/css/home-alt.css";
 import "css.gg/icons/css/sync.css";
+import "css.gg/icons/css/check-o.css";
+import "css.gg/icons/css/close-o.css";
 import Link from "next/link";
 
 interface Props {
@@ -94,7 +96,7 @@ const QuestionCard: React.FC<Props> = ({
                     onClick={(e) => setAnswer(e)}
                     disabled={answerConfirmed ? true : false}
                     className={`
-                      btn mb-1 w-100 btn-small m-0
+                      btn mb-1 w-100 btn-small m-0 u-position-relative
                       ${
                         userAnswer === choice
                           ? "btn-dark text-white"
@@ -105,6 +107,16 @@ const QuestionCard: React.FC<Props> = ({
                       `}
                     value={choice}
                   >
+                    {correct && userAnswer === choice ? (
+                      <i className="gg-check-o u-position-absolute absolute-center-right"></i>
+                    ) : (
+                      ""
+                    )}
+                    {answerConfirmed && correct === false && userAnswer === choice ? (
+                      <i className="gg-close-o u-position-absolute absolute-center-right"></i>
+                    ) : (
+                      ""
+                    )}
                     <b dangerouslySetInnerHTML={{ __html: choice }} />
                   </button>
                 </div>
