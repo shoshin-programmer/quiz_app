@@ -126,7 +126,7 @@ const QuestionCard: React.FC<Props> = ({
         )}
         <hr />
         <div className="row">
-          <div className="col-6 p-1">
+          <div className="col-6 offset-3 p-1">
             <button
               className={`${
                 questionNumber === totalQuestions ? `hide` : ``
