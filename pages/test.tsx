@@ -1,5 +1,6 @@
 import useSWR from "swr";
 import { useState } from "react";
+import { useRouter } from "next/router";
 // Components
 import LoadingCard from "../components/LoadingCard";
 import QuestionCard from "../components/QuestionCard";
@@ -56,6 +57,7 @@ export default function Profile() {
 }
 
 function Questions({ difficulty, totalQuestions }) {
+  const router = useRouter();
   const url = `https://opentdb.com/api.php?amount=${totalQuestions}&difficulty=${difficulty}`;
   const { data, error, mutate, isValidating } = useSWR(
     url,
@@ -79,6 +81,7 @@ function Questions({ difficulty, totalQuestions }) {
     if (questionNumber === totalQuestions - 1) {
       handleRestart();
       alert(`Finished! Your score is: ${score}`);
+      router.push('/')
     } else {
       setTimeout(() => {
         handleNext();
@@ -92,6 +95,7 @@ function Questions({ difficulty, totalQuestions }) {
     setUserAnswer(null);
     setAnswerConfirmed(false);
     setCorrect(false);
+    // TODO optimize rerendering for the buttons
   };
 
   const handleRestart = () => {
