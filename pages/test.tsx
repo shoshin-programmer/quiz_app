@@ -70,18 +70,24 @@ function Questions({ difficulty, totalQuestions }) {
 
   const handleConfirmation = () => {
     setAnswerConfirmed(true);
-    const value = data[questionNumber].correct_answer === userAnswer;
-    setCorrect(value);
-    if (value) {
+    const answerIsCorrect = data[questionNumber].correct_answer === userAnswer;
+    setCorrect(answerIsCorrect);
+    /* Set answerconfirmed, then show modal, then after 2 seconds, handle next. */
+    if (answerIsCorrect) {
       setScore(score + 1);
     }
     if (questionNumber === totalQuestions - 1) {
-      alert(`Finished! Your score is: ${score}`);
       handleRestart();
+      alert(`Finished! Your score is: ${score}`);
+    } else {
+      setTimeout(() => {
+        handleNext();
+      }, 1000);
     }
   };
 
   const handleNext = () => {
+    console.log("next");
     setQuestionNumber(questionNumber + 1);
     setUserAnswer(null);
     setAnswerConfirmed(false);
@@ -124,7 +130,7 @@ function Questions({ difficulty, totalQuestions }) {
                   score={score}
                   handleRestart={handleRestart}
                   handleConfirmation={handleConfirmation}
-                  handleNext={handleNext}
+                  // handleNext={handleNext}
                 />
               )}
             </div>

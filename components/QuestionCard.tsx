@@ -17,7 +17,7 @@ interface Props {
   score: number;
   handleRestart: any;
   handleConfirmation: any;
-  handleNext: any;
+  // handleNext: any;
 }
 
 const QuestionCard: React.FC<Props> = ({
@@ -34,7 +34,7 @@ const QuestionCard: React.FC<Props> = ({
   score,
   handleRestart,
   handleConfirmation,
-  handleNext,
+  // handleNext,
 }) => {
   /*
   if button is clicked,
@@ -125,7 +125,7 @@ const QuestionCard: React.FC<Props> = ({
               Confirm Answer
             </button>
           </div>
-          <div className="col-6 p-1">
+          {/* <div className="col-6 p-1">
             <button
               // TODO: Show a summay on correct answers.
               className={`${
@@ -137,7 +137,7 @@ const QuestionCard: React.FC<Props> = ({
             >
               Next
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
