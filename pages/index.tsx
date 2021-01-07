@@ -1,8 +1,6 @@
 import Head from "next/head";
-import { useState, useContext } from "react";
-import { GetServerSideProps, NextPage } from "next";
 import Link from "next/link";
-
+import styles from "../styles/main.module.css";
 import { SettingsContext } from "../context/settings-context";
 
 const Index = () => {
@@ -25,7 +23,7 @@ const Index = () => {
             <title>Test Your Knowledge</title>
             <link rel="icon" href="/favicon.ico" />
           </Head>
-          <div className="hero fullscreen main-bg">
+          <div className={`hero fullscreen ${styles.main_bg}`}>
             <div className="hero-body">
               <div className="row">
                 <div className="col-6 offset-3">
