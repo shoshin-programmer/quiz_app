@@ -4,9 +4,11 @@ import { useRouter } from "next/router";
 // Components
 import LoadingCard from "../components/LoadingCard";
 import QuestionCard from "../components/QuestionCard";
+import ScoreSummary from "../components/ScoreSummary";
 import { SettingsContext } from "../context/settings-context";
 // Utils
 import { shuffleArray } from "../utils";
+import styles from "../styles/main.module.css";
 // Variables
 
 export type Question = {
@@ -69,6 +71,7 @@ function Questions({ difficulty, totalQuestions }) {
   const [correct, setCorrect] = useState<boolean>(false);
   const [score, setScore] = useState<number>(0);
   const [userAnswer, setUserAnswer] = useState<string>("");
+  const [gameOver, setGameOver] = useState<boolean>(false);
 
   const handleConfirmation = () => {
     setAnswerConfirmed(true);
@@ -79,9 +82,7 @@ function Questions({ difficulty, totalQuestions }) {
       setScore(score + 1);
     }
     if (questionNumber === totalQuestions - 1) {
-      handleRestart();
-      alert(`Finished! Your score is: ${score}`);
-      router.push('/')
+      setGameOver(true)
     } else {
       setTimeout(() => {
         handleNext();
@@ -112,7 +113,7 @@ function Questions({ difficulty, totalQuestions }) {
 
   return (
     <div>
-      <div className="hero fullscreen main-bg">
+      <div className={`hero fullscreen ${styles.main_bg}`}>
         <div className="hero-body">
           <div className="row">
             <div className="col-6 offset-3">
@@ -120,6 +121,8 @@ function Questions({ difficulty, totalQuestions }) {
                 <LoadingCard />
               ) : !data ? (
                 <LoadingCard />
+              ) : gameOver ? (
+                <ScoreSummary score={score} handleRestart={handleRestart} totalQuestions={totalQuestions} />
               ) : (
                 <QuestionCard
                   question={data[questionNumber].question}
