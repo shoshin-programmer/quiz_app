@@ -72,7 +72,8 @@ const Index = () => {
                       </div>
                     </div>
                     <div className="card-footer level content">
-                      Last Score: 10/10
+                      {/* Last Score: 10/10 */}
+                      <a href="https://www.mark-atienza.com/" target="_blank"> Created by: Mark the Dev</a>
                     </div>
                     <div className="action-bar u-center">
                       <Link href="/test">
