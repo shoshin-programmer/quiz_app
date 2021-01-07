@@ -113,7 +113,7 @@ function Questions({ difficulty, totalQuestions }) {
 
   return (
     <div>
-      <div className={`hero fullscreen ${styles.main_bg}`}>
+      <div className={`hero ${styles.fullheight} ${styles.main_bg}`}>
         <div className="hero-body">
           <div className="row">
             <div className="col-6 offset-3">
